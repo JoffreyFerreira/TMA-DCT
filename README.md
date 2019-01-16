@@ -13,4 +13,6 @@ PSNR :
 A partir d'un facteur qualité de 75 le PSNR augmente brusquement et rapidement jusqu'à 60 dB, pour une image de qualité suffisante il faudrait un psnr supérieur à 30dB, cette valeur est dépassé vers qualité=20. Ce qui correspond à peu près à nos observations précédente sur la valeur de n
 
 SSIM :
-Le SSIM augmente rapidement jusqu'à qualité=60 
+Le SSIM augmente rapidement jusqu'à qualité=60, ensuite il monte lentement jusqu'à un palier de 1 vers qualité=100
+SSIM valide également le choix de n=8
+ 
