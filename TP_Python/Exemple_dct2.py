@@ -70,9 +70,29 @@ plt.imshow(newim,cmap='gray')
 fich=open('madct.dat','wb')
 fich.write(np.reshape(newim,-1)) 
 fich.close()
-monIm=pil.Image.fromarray(np.ubyte(np.round(255.0*img_gray,0)))
-monIm.save('essai.jpeg',quality=20)
-monImlu=pil.Image.open("essai.jpeg")
+
+psnr_tab = np.zeros(30)
+ssim_tab = np.zeros(30)
+abs_tab = np.zeros(30)
+compt=0
+
+for qual in range(10,160,5):
+
+	monIm=pil.Image.fromarray(np.ubyte(np.round(255.0*img_gray,0)))
+	monIm.save('essai.jpeg',quality=qual)
+
+	img_compr = io.imread("essai.jpeg")
+	img_compr = rgb2gray(img_compr)
+	img_compr=sk.img_as_float(img_compr)
+	psnr_tab[compt]=measure.compare_psnr(img_gray,img_compr,1.0)
+	ssim_tab[compt]=measure.compare_ssim(img_gray,img_compr)
+	abs_tab[compt] = qual
+	compt+=1
+
+plt.figure(5)
+plt.plot(abs_tab, psnr_tab)
+plt.figure(6)
+plt.plot(abs_tab, ssim_tab)
 print( "taille= ",os.path.getsize("essai.jpeg"), "en octet")
 print("compression =", 1.0*img_size[0]*img_size[1]/os.path.getsize("essai.jpeg"))
 plt.show()
